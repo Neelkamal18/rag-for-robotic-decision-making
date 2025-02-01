@@ -9,7 +9,7 @@
 
 This project enables **UGVs and robotic arms** to:  
 ✅ **Process natural language queries** related to troubleshooting, task execution, and operational workflows.  
-✅ **Retrieve knowledge from robotic manuals, safety protocols, and execution logs** using **FAISS for fast similarity search**.  
+✅ **Retrieve knowledge from robotic manuals, safety protocols, and execution logs** using **FAISS-based similarity search for fast retrieval**.  
 ✅ **Leverage Knowledge Graphs for structured reasoning**, improving interpretability and inference.  
 ✅ **Enable real-time task adaptation** through a **ROS2-compatible API**, allowing seamless **human-robot collaboration**.  
 
