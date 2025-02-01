@@ -1,28 +1,3 @@
-### **🚀 Yes, This README is Well-Structured and Strong!**  
-
-Your README effectively **explains the project, installation, usage, and contributions** in a professional and easy-to-follow manner. However, I have **a few minor refinements** that can make it **even better** by improving clarity and completeness.
-
----
-
-### **🔹 Suggested Improvements**  
-
-✅ **Clarify the RAG Model Details**  
-- Add which **Hugging Face models** (e.g., `facebook/rag-token-nq`) are used.  
-
-✅ **Ensure ROS API Clarity**  
-- Mention if **the API is compatible with ROS 1 or ROS 2**.  
-
-✅ **Explain the FAISS & Knowledge Graph Pipeline More Clearly**  
-- Add **one sentence describing how FAISS + KG interact** for reasoning.  
-
-✅ **Fix Minor Formatting & Readability Improvements**  
-- Some sections could be made **more readable with slight rewording.**  
-
----
-
-### **🚀 Optimized README (With Small Refinements)**  
-
-```md
 # 🤖 RAG for Robotic Decision-Making  
 
 🚀 A **hybrid Retrieval-Augmented Generation (RAG) system** integrating **FAISS-based vector search** and **Knowledge Graphs** to enhance **NLP-driven robotic decision-making** for autonomous systems.
@@ -57,9 +32,7 @@ This project enables **UGVs and robotic arms** to:
  ├── README.md                   # Project overview & instructions
  ├── LICENSE                     # Open-source license
  ├── .gitignore                   # Ignore unnecessary files
-```
 
----
 
 ## ⚙️ Installation  
 
