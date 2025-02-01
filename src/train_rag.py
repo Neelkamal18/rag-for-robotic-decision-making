@@ -2,8 +2,13 @@ import json
 import torch
 from transformers import RagTokenizer, RagRetriever, RagSequenceForGeneration, Trainer, TrainingArguments
 from datasets import Dataset
+import os
 
 MODEL_DIR = "models/rag_finetuned/"
+
+# Ensure the directory exists before saving the model
+os.makedirs(MODEL_DIR, exist_ok=True)
+
 DATASET_PATH = "data/train.json"
 
 class RAGFineTuner:
