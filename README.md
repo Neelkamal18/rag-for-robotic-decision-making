@@ -1,5 +1,4 @@
 
-```markdown
 # RAG for Robotic Decision-Making  
 
 🚀 A **hybrid Retrieval-Augmented Generation (RAG) system** integrating **FAISS-based vector search** and **Knowledge Graphs** to enhance **NLP-driven robotic decision-making** for autonomous systems.
