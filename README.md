@@ -18,7 +18,8 @@ This project enables **UGVs and robotic arms** to:
 
 ```plaintext
 📂 rag-for-robotic-decision-making/
- ├── 📂 data/                    
+ ├── 📂 data/
+ |    ├── train.json                    # Sample fine-tuning dataset              
  │    ├── robotic_manuals.json          # Robotic manuals & safety protocols
  │    ├── troubleshooting_logs.json     # Logs from real-world robotic failures
  │    ├── ros_commands.json             # Command-to-action mappings
