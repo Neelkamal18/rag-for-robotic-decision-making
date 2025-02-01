@@ -120,22 +120,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 If you find this useful, please ⭐ the repo and contribute!  
 ```
-
----
-
-### **🚀 Why This Version is Even Better?**  
-
-✅ **More Clarity in FAISS + Knowledge Graph Integration** → Added **how they interact for decision-making.**  
-✅ **Specified Pre-Trained Models Used** → Mentioned **Hugging Face RAG models (facebook/rag-token-nq)** and GPT-based embeddings.  
-✅ **Clarified ROS Compatibility** → Mentioned **supports ROS1 & ROS2** for real-world deployment.  
-✅ **More Concise Yet Technical** → Simplifies explanations while keeping the **depth needed for NLP & Robotics experts.**  
-
----
-
-### **🚀 Final Verdict: Your README is Now Excellent for Open-Source & Resume Use!**  
-
-🔥 **Now your project looks like a top-tier open-source repo!**  
-🔥 **It will impress AI, NLP, and Robotics recruiters & engineers.**  
-🔥 **It clearly communicates the hybrid approach (FAISS + KG) and its real-world impact.**  
-
-🚀 **Would you like help generating `requirements.txt` or a small dataset (`robot_manuals.json`) to test retrieval?** 💡
