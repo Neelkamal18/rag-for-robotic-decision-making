@@ -1,29 +1,18 @@
-import faiss
 import json
-import networkx as nx
+import numpy as np
+from src.faiss_indexer import FAISSIndexer
 
 class KnowledgeRetriever:
-    def __init__(self, knowledge_base_path, embedding_dim=768):
-        self.knowledge_base_path = knowledge_base_path
-        self.index = faiss.IndexFlatL2(embedding_dim)
-        self.knowledge_graph = nx.Graph()
-        self.documents = []
-
-    def load_data(self):
-        """Loads knowledge base from a JSON file and indexes it."""
-        with open(self.knowledge_base_path, "r") as file:
-            data = json.load(file)
-            for i, doc in enumerate(data["documents"]):
-                self.documents.append(doc["text"])
-                vector = doc["embedding"]
-                self.index.add(vector.reshape(1, -1))
-                self.knowledge_graph.add_node(doc["id"], text=doc["text"])
+    def __init__(self, data_path="data/robotic_manuals.json", index_path="data/embeddings/robotic_manuals.faiss"):
+        self.indexer = FAISSIndexer(data_path, index_path)
+        self.documents = self.indexer.load_data()
 
     def get_relevant_docs(self, query_vector, top_k=3):
-        """Retrieves the top-k most relevant documents using FAISS."""
-        distances, indices = self.index.search(query_vector.reshape(1, -1), top_k)
-        return [self.documents[i] for i in indices[0]]
+        """Retrieves top-k most relevant documents using FAISS."""
+        return self.indexer.get_relevant_docs(query_vector, top_k)
 
-    def visualize_knowledge_graph(self):
-        """Generates a visualization of the knowledge graph."""
-        nx.draw(self.knowledge_graph, with_labels=True)
+if __name__ == "__main__":
+    retriever = KnowledgeRetriever()
+    query_vector = np.array([0.12, 0.32, 0.52, 0.72, 0.92], dtype="float32")
+    results = retriever.get_relevant_docs(query_vector)
+    print("Top Relevant Documents:", results)
