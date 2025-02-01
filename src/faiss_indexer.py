@@ -32,7 +32,7 @@ class FAISSIndexer:
 
         # Save FAISS index
         faiss.write_index(self.index, self.index_path)
-        print(f"✅ FAISS index saved at {self.index_path}")
+        print(f"FAISS index saved at {self.index_path}")
 
 if __name__ == "__main__":
     FAISSIndexer("data/robotic_manuals.json", "data/embeddings/robotic_manuals.faiss").create_faiss_index()

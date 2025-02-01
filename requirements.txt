@@ -1,9 +1,14 @@
-torch
-transformers
-faiss-cpu
-networkx
-nltk
-numpy
-rospy
-std_msgs
-PyYAML
+torch                  # PyTorch for training and inference
+transformers           # Hugging Face transformers (RAG, Llama, GPT)
+faiss-cpu              # FAISS for vector search and retrieval
+networkx               # Knowledge Graph handling
+nltk                   # Natural Language Toolkit for text processing
+numpy                  # Numerical computations
+scipy                  # Scientific computing (for FAISS optimizations)
+rospy                  # ROS interface for robotic integration
+std_msgs               # ROS message types
+PyYAML                 # Configuration file handling
+datasets               # Hugging Face datasets for fine-tuning
+sentence-transformers  # Pre-trained embeddings for FAISS indexing
+tqdm                   # Progress bar for training
+openai                 # OpenAI API for alternative embeddings (if needed)

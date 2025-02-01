@@ -1,25 +1,54 @@
+import json
+import torch
 from transformers import RagTokenizer, RagRetriever, RagSequenceForGeneration, Trainer, TrainingArguments
-import os
+from datasets import Dataset
 
 MODEL_DIR = "models/rag_finetuned/"
+DATASET_PATH = "data/train.json"
 
 class RAGFineTuner:
     def __init__(self):
-        """Loads pre-trained RAG model and tokenizer."""
+        """Loads pre-trained RAG model and tokenizer for fine-tuning."""
         self.tokenizer = RagTokenizer.from_pretrained("facebook/rag-token-nq")
         self.retriever = RagRetriever.from_pretrained("facebook/rag-token-nq", index_name="exact")
         self.model = RagSequenceForGeneration.from_pretrained("facebook/rag-token-nq")
 
-    def fine_tune(self, train_dataset):
-        """Fine-tunes RAG model using provided dataset."""
+        # Move model to GPU if available
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.model.to(self.device)
+
+    def load_dataset(self):
+        """Loads the fine-tuning dataset from train.json."""
+        with open(DATASET_PATH, "r") as file:
+            data = json.load(file)["data"]
+        
+        # Convert to Hugging Face dataset format
+        dataset = Dataset.from_list([
+            {
+                "question": sample["question"],
+                "context": sample["context"],
+                "answer": sample["answer"]
+            }
+            for sample in data
+        ])
+        return dataset
+
+    def fine_tune(self):
+        """Fine-tunes the RAG model using PyTorch & Hugging Face Trainer."""
+        train_dataset = self.load_dataset()
+        
         training_args = TrainingArguments(
             output_dir=MODEL_DIR,
             per_device_train_batch_size=2,
+            per_device_eval_batch_size=2,
             evaluation_strategy="epoch",
             save_total_limit=1,
             num_train_epochs=3,
             save_steps=500,
-            logging_steps=100
+            logging_steps=100,
+            logging_dir="logs",
+            report_to="none",
+            fp16=torch.cuda.is_available()
         )
 
         trainer = Trainer(
@@ -33,9 +62,8 @@ class RAGFineTuner:
         # Save fine-tuned model
         self.model.save_pretrained(MODEL_DIR)
         self.tokenizer.save_pretrained(MODEL_DIR)
-        print(f"✅ Fine-tuned model saved in {MODEL_DIR}")
+        print(f"Fine-tuned model saved in {MODEL_DIR}")
 
 if __name__ == "__main__":
-    # TODO: Replace `train_dataset=None` with a real dataset
     fine_tuner = RAGFineTuner()
-    fine_tuner.fine_tune(train_dataset=None)
+    fine_tuner.fine_tune()
