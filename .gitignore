@@ -1,0 +1,49 @@
+# General Python ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.log
+*.out
+.DS_Store
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Large files & datasets
+data/*.csv
+data/*.json
+data/*.txt
+data/*.zip
+data/*.tar.gz
+data/*.h5
+data/*.pth
+data/*.pkl
+
+# Model weights & embeddings
+models/*.bin
+models/*.h5
+models/*.tflite
+models/*.onnx
+models/*.ckpt
+
+# Hugging Face cache
+~/.cache/huggingface/
+~/.cache/transformers/
+
+# FAISS Index files
+index.faiss
+*.faiss
+
+# ROS-related ignores
+build/
+devel/
+log/
+install/

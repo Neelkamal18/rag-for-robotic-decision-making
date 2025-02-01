@@ -10,7 +10,7 @@ This project enables **UGVs and robotic arms** to:
 ✅ **Process natural language queries** related to troubleshooting, task execution, and operational workflows.  
 ✅ **Retrieve knowledge from robotic manuals, safety protocols, and execution logs** using **FAISS for fast similarity search**.  
 ✅ **Leverage Knowledge Graphs for structured reasoning**, improving interpretability and inference.  
-✅ **Enable real-time task adaptation** through a **ROS-compatible API (supports ROS1 & ROS2)**, allowing seamless **human-robot collaboration**.  
+✅ **Enable real-time task adaptation** through a **ROS-compatible API**, allowing seamless **human-robot collaboration**.  
 
 ---
 
@@ -29,6 +29,7 @@ This project enables **UGVs and robotic arms** to:
  ├── 📂 notebooks/               # Jupyter notebooks for testing
  ├── 📂 configs/                 # Configuration files for models & APIs
  ├── requirements.txt            # Python dependencies
+ ├── demo_run.sh                 # Automated script to run the entire pipeline
  ├── README.md                   # Project overview & instructions
  ├── LICENSE                     # Open-source license
  ├── .gitignore                   # Ignore unnecessary files
@@ -45,6 +46,24 @@ cd rag-for-robotic-decision-making
 Install dependencies:  
 ```bash
 pip install -r requirements.txt
+```
+
+---
+
+## 🚀 How to Run the Demo Script
+
+```plaintext
+To automate the full pipeline execution, use the provided demo_run.sh script.
+
+1️⃣ Give Execution Permission:
+chmod +x demo_run.sh
+2️⃣ Run the Script:
+./demo_run.sh
+This script will:
+✅ Install dependencies
+✅ Start the ROS API for robotic integration
+✅ Run inference for RAG-based robotics query resolution
+✅ Evaluate model performance using BLEU Score & Recall@K
 ```
 
 ---

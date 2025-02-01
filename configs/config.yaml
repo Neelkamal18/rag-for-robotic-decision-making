@@ -1,0 +1,12 @@
+model:
+  name: "facebook/rag-token-nq"
+  retrieval_backend: "FAISS"
+  knowledge_graph_enabled: true
+
+faiss:
+  embedding_dim: 768
+  index_type: "FlatL2"
+
+api:
+  ros_topic_command: "/robot_commands"
+  ros_topic_response: "/robot_response"

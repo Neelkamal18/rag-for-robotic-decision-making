@@ -1,0 +1,9 @@
+torch
+transformers
+faiss-cpu
+networkx
+nltk
+numpy
+rospy
+std_msgs
+PyYAML
