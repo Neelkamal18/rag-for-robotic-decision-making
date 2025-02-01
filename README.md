@@ -18,21 +18,41 @@ This project enables **UGVs and robotic arms** to:
 
 ```plaintext
 📂 rag-for-robotic-decision-making/
- ├── 📂 data/                    # Datasets (robotic manuals, logs, safety protocols)
- ├── 📂 models/                  # Pre-trained & fine-tuned RAG models
- ├── 📂 src/                     # Core source code
- │    ├── data_loader.py        # FAISS & Knowledge Graph integration for retrieval
- │    ├── rag_pipeline.py       # Main RAG-based NLP pipeline
- │    ├── robot_api.py          # ROS-compatible API for robotic task execution
- │    ├── inference.py          # Runs RAG for robotic decision-making
- │    ├── evaluation.py         # Evaluates RAG performance (BLEU, Recall@K)
- ├── 📂 notebooks/               # Jupyter notebooks for testing
- ├── 📂 configs/                 # Configuration files for models & APIs
- ├── requirements.txt            # Python dependencies
- ├── demo_run.sh                 # Automated script to run the entire pipeline
- ├── README.md                   # Project overview & instructions
- ├── LICENSE                     # Open-source license
- ├── .gitignore                   # Ignore unnecessary files
+ ├── 📂 data/                    
+ │    ├── robotic_manuals.json          # Robotic manuals & safety protocols
+ │    ├── troubleshooting_logs.json     # Logs from real-world robotic failures
+ │    ├── ros_commands.json             # Command-to-action mappings
+ │    ├── embeddings/                    # FAISS index storage
+ │    │    ├── robotic_manuals.faiss
+ │    │    ├── troubleshooting_logs.faiss
+ ├── 📂 models/                          # Pre-trained & fine-tuned RAG models
+ │    ├── rag_finetuned/                 # Fine-tuned RAG model
+ │    │    ├── config.json
+ │    │    ├── pytorch_model.bin
+ │    │    ├── tokenizer.json
+ │    ├── faiss_index/                    # FAISS vector search index
+ │    │    ├── robotic_manuals.faiss
+ │    │    ├── troubleshooting_logs.faiss
+ │    ├── knowledge_graph/                # Structured knowledge base
+ │    │    ├── knowledge_graph.pkl
+ ├── 📂 src/                             # Core source code
+ │    ├── faiss_indexer.py               # FAISS indexing & retrieval functions
+ │    ├── knowledge_graph.py             # Knowledge Graph reasoning
+ │    ├── data_loader.py                 # Retrieves documents from FAISS & KG
+ │    ├── rag_pipeline.py                # NLP pipeline (RAG + Llama + GPT)
+ │    ├── train_rag.py                   # Fine-tuning RAG model
+ │    ├── robot_api.py                   # ROS-compatible API
+ │    ├── inference.py                    # Runs NLP query inference
+ │    ├── evaluation.py                   # Evaluates RAG performance
+ ├── 📂 notebooks/                        # Jupyter notebooks for testing
+ ├── 📂 configs/                          # Configuration files
+ ├── requirements.txt                     # Python dependencies
+ ├── demo_run.sh                         # Automated script to run the entire pipeline
+ ├── logs/                               # 📂 Log directory
+ │    ├── demo_run.log                   # Output log file
+ ├── README.md                           # Project overview & instructions
+ ├── LICENSE                             # Open-source license
+ ├── .gitignore                          # Ignore unnecessary files
 ```
 
 ## ⚙️ Installation  
@@ -48,23 +68,38 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
----
+### ✅ **Yes, this section is correct for your README!**  
+However, I have **slightly refined it** for better readability and clarity while keeping the same meaning.  
 
-## 🚀 How to Run the Demo Script
+--- 
 
-```plaintext
-To automate the full pipeline execution, use the provided demo_run.sh script.
+## 🚀 How to Run the Demo Script  
 
-1️⃣ Give Execution Permission:
+To **automate the full pipeline execution**, use the provided `demo_run.sh` script.  
+
+### 1️⃣ **Give Execution Permission:**  
+```bash
 chmod +x demo_run.sh
-2️⃣ Run the Script:
-./demo_run.sh
-This script will:
-✅ Install dependencies
-✅ Start the ROS API for robotic integration
-✅ Run inference for RAG-based robotics query resolution
-✅ Evaluate model performance using BLEU Score & Recall@K
 ```
+
+### 2️⃣ **Run the Script:**  
+```bash
+./demo_run.sh
+```
+
+### 3️⃣ **Check Logs:**  
+All output is logged to:  
+```bash
+cat logs/demo_run.log
+```
+
+### 📌 **What This Script Does:**  
+✅ **Installs dependencies** (if not already installed)  
+✅ **Runs FAISS Indexing** to prepare knowledge retrieval  
+✅ **Starts the ROS API** for robotic integration  
+✅ **Runs inference** for RAG-based robotic query resolution  
+✅ **Evaluates model performance** using **BLEU Score & Recall@K**  
+✅ **Handles errors gracefully** and **logs all actions**  
 
 ---
 

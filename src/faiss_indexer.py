@@ -1,50 +1,39 @@
 import faiss
 import json
 import numpy as np
+from sentence_transformers import SentenceTransformer
 
 class FAISSIndexer:
-    def __init__(self, data_path="data/robotic_manuals.json", index_path="data/embeddings/robotic_manuals.faiss"):
+    def __init__(self, data_path, index_path):
         self.data_path = data_path
         self.index_path = index_path
+        self.model = SentenceTransformer("all-MiniLM-L6-v2")
         self.index = None
         self.documents = []
-    
+
     def load_data(self):
-        """Loads knowledge base from a JSON file and extracts embeddings."""
+        """Loads knowledge base from a JSON file."""
         with open(self.data_path, "r") as file:
             data = json.load(file)
             self.documents = data["documents"]
         return self.documents
 
     def create_faiss_index(self):
-        """Creates a FAISS index from precomputed embeddings."""
+        """Creates a FAISS index from document embeddings."""
         if not self.documents:
             self.load_data()
         
-        dim = len(self.documents[0]["embedding"])
-        self.index = faiss.IndexFlatL2(dim)
+        texts = [doc["text"] for doc in self.documents]
+        embeddings = self.model.encode(texts)  # Generate embeddings
 
-        for doc in self.documents:
-            vector = np.array(doc["embedding"], dtype="float32").reshape(1, -1)
-            self.index.add(vector)
+        dim = embeddings.shape[1]
+        self.index = faiss.IndexFlatL2(dim)
+        self.index.add(np.array(embeddings, dtype="float32"))
 
         # Save FAISS index
         faiss.write_index(self.index, self.index_path)
         print(f"✅ FAISS index saved at {self.index_path}")
 
-    def get_relevant_docs(self, query_vector, top_k=3):
-        """Retrieves top-k most relevant documents using FAISS."""
-        if self.index is None:
-            self.index = faiss.read_index(self.index_path)
-
-        distances, indices = self.index.search(query_vector.reshape(1, -1), top_k)
-        return [self.documents[i]["text"] for i in indices[0]]
-
 if __name__ == "__main__":
-    indexer = FAISSIndexer()
-    indexer.create_faiss_index()
-
-    # Example query vector (Replace with real embeddings from a language model)
-    query_vector = np.array([0.12, 0.32, 0.52, 0.72, 0.92], dtype="float32")
-    results = indexer.get_relevant_docs(query_vector)
-    print("Relevant Documents:", results)
+    FAISSIndexer("data/robotic_manuals.json", "data/embeddings/robotic_manuals.faiss").create_faiss_index()
+    FAISSIndexer("data/troubleshooting_logs.json", "data/embeddings/troubleshooting_logs.faiss").create_faiss_index()

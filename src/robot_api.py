@@ -1,6 +1,6 @@
 import rospy
 from std_msgs.msg import String
-from rag_pipeline import RAGModel
+from src.rag_pipeline import RAGModel
 
 class RobotNLPInterface:
     def __init__(self):
@@ -10,9 +10,9 @@ class RobotNLPInterface:
         self.pub = rospy.Publisher("/robot_response", String, queue_size=10)
     
     def process_command(self, msg):
-        """Processes the command and generates a response using RAG."""
+        """Processes commands and generates a response using RAG."""
         response = self.rag_model.answer_query(msg.data)
-        self.pub.publish(response)
+        self.pub.publish(response["response"])
 
 if __name__ == "__main__":
     RobotNLPInterface()
