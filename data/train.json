@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+            "question": "How do I reset a robotic arm?",
+            "context": "To reset a robotic arm, press the emergency stop button and restart the control system.",
+            "answer": "Press the emergency stop button and restart the control system."
+        },
+        {
+            "question": "What should I do if the UGV is stuck?",
+            "context": "If the UGV is stuck, reset the path planner and clear obstacles from its path.",
+            "answer": "Reset the path planner and remove any obstacles."
+        },
+        {
+            "question": "How do I check the battery status of a robotic system?",
+            "context": "Use the `rostopic echo /battery_status` command to check the battery levels in ROS.",
+            "answer": "Use `rostopic echo /battery_status`."
+        },
+        {
+            "question": "What are the safety measures for robotic welding?",
+            "context": "Ensure the work area is clear, use protective eyewear, and activate the emergency stop system if necessary.",
+            "answer": "Use protective eyewear and ensure the work area is clear."
+        },
+        {
+            "question": "How do I recalibrate a robotic gripper?",
+            "context": "To recalibrate a robotic gripper, run the `rosservice call /gripper_calibrate` command and manually adjust the grip force if needed.",
+            "answer": "Run `rosservice call /gripper_calibrate`."
+        }
+    ]
+}

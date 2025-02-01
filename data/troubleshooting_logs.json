@@ -1,0 +1,30 @@
+{
+    "logs": [
+        {
+            "id": "log_001",
+            "error_code": "E102",
+            "issue": "Joint overheating in robotic arm",
+            "solution": "Reduce duty cycle, check motor cooling fan, recalibrate thermal sensor...",
+            "embedding": [
+                0.15,
+                0.35,
+                0.55,
+                0.75,
+                0.95
+            ]
+        },
+        {
+            "id": "log_002",
+            "error_code": "E205",
+            "issue": "UGV stuck in obstacle loop",
+            "solution": "Reset path planner, clear lidar buffer, recalibrate navigation system...",
+            "embedding": [
+                0.25,
+                0.45,
+                0.65,
+                0.85,
+                1.05
+            ]
+        }
+    ]
+}

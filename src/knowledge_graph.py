@@ -16,8 +16,11 @@ class KnowledgeGraph:
         self.data_path = data_path
 
         if os.path.exists(GRAPH_FILE):
-            print(f"Loading existing Knowledge Graph from {GRAPH_FILE}")
-            self.load_graph()
+            print(f"Loading existing Knowledge Graph from {GRAPH_FILE}...")
+            if not self.load_graph():
+                print("Failed to load Knowledge Graph. Rebuilding from source...")
+                self.load_data()
+                self.save_graph()
         else:
             print("Creating a new Knowledge Graph from data...")
             self.load_data()
@@ -39,6 +42,10 @@ class KnowledgeGraph:
                 for doc in data["documents"]:
                     self.graph.add_node(doc["id"], text=doc["text"])
 
+                if len(self.graph.nodes) == 0:
+                    print("Warning: No valid nodes found in the dataset.")
+                    return False
+
             print(f"Knowledge Graph created with {len(self.graph.nodes)} nodes.")
             return True
         except json.JSONDecodeError:
@@ -47,17 +54,32 @@ class KnowledgeGraph:
 
     def save_graph(self):
         """Saves the Knowledge Graph to a file."""
+        if len(self.graph.nodes) == 0:
+            print("Warning: Empty Knowledge Graph. Skipping save operation.")
+            return
+
         with open(GRAPH_FILE, "wb") as file:
             pickle.dump(self.graph, file)
-        print(f"Knowledge Graph successfully saved at {GRAPH_FILE}")
+        print(f"Knowledge Graph successfully saved at {GRAPH_FILE}.")
 
     def load_graph(self):
         """Loads a saved Knowledge Graph."""
-        with open(GRAPH_FILE, "rb") as file:
-            self.graph = pickle.load(file)
+        try:
+            with open(GRAPH_FILE, "rb") as file:
+                self.graph = pickle.load(file)
+
+            if len(self.graph.nodes) == 0:
+                print("Warning: Loaded Knowledge Graph is empty. Rebuilding from source...")
+                return False
+
+            print(f"Successfully loaded Knowledge Graph with {len(self.graph.nodes)} nodes.")
+            return True
+        except (EOFError, pickle.UnpicklingError):
+            print(f"Error: Corrupted Knowledge Graph file. Rebuilding from source...")
+            return False
 
     def get_related_nodes(self, node_id):
-        """Returns related nodes from the knowledge graph."""
+        """Returns related nodes from the Knowledge Graph."""
         if node_id in self.graph:
             return list(self.graph.neighbors(node_id))
         else:
@@ -66,4 +88,4 @@ class KnowledgeGraph:
 
 if __name__ == "__main__":
     kg = KnowledgeGraph()
-    print("Sample Graph Nodes:", list(kg.graph.nodes)[:5])
+    print("🔍 Sample Graph Nodes:", list(kg.graph.nodes)[:5])

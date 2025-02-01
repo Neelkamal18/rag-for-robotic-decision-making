@@ -1,14 +1,31 @@
+# Core ML & AI Libraries
 torch                  # PyTorch for training and inference
+torchvision            # PyTorch vision models (needed for some models)
+torchaudio             # PyTorch audio models (for speech-based tasks)
 transformers           # Hugging Face transformers (RAG, Llama, GPT)
-faiss-cpu              # FAISS for vector search and retrieval
-networkx               # Knowledge Graph handling
-nltk                   # Natural Language Toolkit for text processing
-numpy                  # Numerical computations
-scipy                  # Scientific computing (for FAISS optimizations)
-rospy                  # ROS interface for robotic integration
-std_msgs               # ROS message types
-PyYAML                 # Configuration file handling
 datasets               # Hugging Face datasets for fine-tuning
 sentence-transformers  # Pre-trained embeddings for FAISS indexing
-tqdm                   # Progress bar for training
+faiss-cpu              # FAISS for vector search and retrieval (Use faiss-gpu if needed)
 openai                 # OpenAI API for alternative embeddings (if needed)
+
+# Scientific Computing & Optimizations
+numpy                  # Numerical computations
+scipy                  # Scientific computing (for FAISS optimizations)
+tqdm                   # Progress bar for training
+
+# NLP Libraries
+nltk                   # Natural Language Toolkit for text processing
+
+# Knowledge Graph Handling
+networkx               # Knowledge Graph handling
+
+# Configuration & Utility Libraries
+PyYAML                 # Configuration file handling
+
+# ROS2 Dependencies
+rclpy                  # ROS2 interface for robotic integration (Replaces rospy)
+launch                 # ROS2 launch system
+launch_ros             # ROS2 launch system support
+
+# ⚠️ Install ROS2 packages via rosdep, not pip ⚠️
+# std_msgs              # ROS message types (Install via `rosdep install --from-paths src --ignore-src -r -y`)

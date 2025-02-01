@@ -1,0 +1,28 @@
+{
+    "commands": [
+        {
+            "id": "cmd_001",
+            "instruction": "Move robotic arm to home position",
+            "ros_command": "rosservice call /arm/home_position",
+            "embedding": [
+                0.12,
+                0.32,
+                0.52,
+                0.72,
+                0.92
+            ]
+        },
+        {
+            "id": "cmd_002",
+            "instruction": "Stop UGV immediately",
+            "ros_command": "rostopic pub /ugv/stop std_msgs/Empty",
+            "embedding": [
+                0.22,
+                0.42,
+                0.62,
+                0.82,
+                1.02
+            ]
+        }
+    ]
+}

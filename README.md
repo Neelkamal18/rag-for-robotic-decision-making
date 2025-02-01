@@ -19,13 +19,10 @@ This project enables **UGVs and robotic arms** to:
 ```plaintext
 📂 rag-for-robotic-decision-making/
  ├── 📂 data/
- |    ├── train.json                    # Sample fine-tuning dataset              
+ │    ├── train.json                    # Sample fine-tuning dataset              
  │    ├── robotic_manuals.json          # Robotic manuals & safety protocols
  │    ├── troubleshooting_logs.json     # Logs from real-world robotic failures
  │    ├── ros_commands.json             # Command-to-action mappings
- │    ├── embeddings/                    # FAISS index storage
- │    │    ├── robotic_manuals.faiss
- │    │    ├── troubleshooting_logs.faiss
  ├── 📂 models/                          # Pre-trained & fine-tuned RAG models
  │    ├── rag_finetuned/                 # Fine-tuned RAG model
  │    │    ├── config.json
@@ -42,19 +39,26 @@ This project enables **UGVs and robotic arms** to:
  │    ├── data_loader.py                 # Retrieves documents from FAISS & KG
  │    ├── rag_pipeline.py                # NLP pipeline (RAG + Llama + GPT)
  │    ├── train_rag.py                   # Fine-tuning RAG model
- │    ├── robot_api.py                   # ROS-compatible API
  │    ├── inference.py                    # Runs NLP query inference
  │    ├── evaluation.py                   # Evaluates RAG performance
+ ├── 📂 rag_robot_interface/              # ROS2 package for NLP-robot API
+ │    ├── __init__.py                     # ROS2 package init file
+ │    ├── robot_api.py                    # ✅ ROS2 NLP Node
+ ├── 📂 launch/                           # ROS2 launch files
+ │    ├── robot_nlp_launch.py             # ✅ ROS2 launch script
  ├── 📂 notebooks/                        # Jupyter notebooks for testing
+ │    ├── rag_pipeline.ipynb              # End-to-end implementation
  ├── 📂 configs/                          # Configuration files
+ ├── 📂 logs/                             # Log directory
+ │    ├── demo_run.log                    # Output log file
+ ├── setup.py                             # ✅ ROS2 package setup
  ├── requirements.txt                     # Python dependencies
- ├── demo_run.sh                         # Automated script to run the entire pipeline
- ├── logs/                               # 📂 Log directory
- │    ├── demo_run.log                   # Output log file
- ├── README.md                           # Project overview & instructions
- ├── LICENSE                             # Open-source license
- ├── .gitignore                          # Ignore unnecessary files
+ ├── demo_run.sh                          # Automated script to run the entire pipeline
+ ├── README.md                            # Project overview & instructions
+ ├── LICENSE                              # Open-source license
+ ├── .gitignore                           # Ignore unnecessary files
 ```
+--- 
 
 ## ⚙️ Installation  
 
@@ -68,9 +72,29 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+### Ensure ROS2 environment is sourced first
+```bash
+source /opt/ros/humble/setup.bash  # Replace 'humble' with your ROS2 version
+```
 
-### ✅ **Yes, this section is correct for your README!**  
-However, I have **slightly refined it** for better readability and clarity while keeping the same meaning.  
+### Install required ROS2 dependencies
+```bash
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+### Build & Source ROS2 Package
+```bash
+colcon build --packages-select rag_robot_interface
+source install/setup.bash
+```
+
+### Verify Installation
+
+```bash
+python -c "import torch; print(torch.__version__)"  # Check PyTorch installation
+python -c "import faiss; print(faiss.__version__)"  # Check FAISS installation
+ros2 pkg list | grep rag_robot_interface           # Verify ROS2 package installation
+```
 
 --- 
 

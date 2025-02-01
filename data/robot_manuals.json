@@ -1,0 +1,28 @@
+{
+    "documents": [
+        {
+            "id": "manual_001",
+            "title": "Robotic Arm Safety Guidelines",
+            "text": "Ensure the robotic arm is powered off before performing maintenance. Check torque settings...",
+            "embedding": [
+                0.1,
+                0.3,
+                0.5,
+                0.7,
+                0.9
+            ]   
+        },
+        {
+            "id": "manual_002",
+            "title": "UGV Battery Maintenance",
+            "text": "Charge the UGV battery every 24 hours. Avoid deep discharge below 20%...",
+            "embedding": [
+                0.2,
+                0.4,
+                0.6,
+                0.8,
+                1.0
+            ]
+        }
+    ]
+}

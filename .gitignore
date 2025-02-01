@@ -19,13 +19,18 @@ env/
 
 # Large files & datasets
 data/*.csv
-data/*.json
 data/*.txt
 data/*.zip
 data/*.tar.gz
 data/*.h5
 data/*.pth
 data/*.pkl
+
+# Keep essential JSON files, but ignore backups
+data/*.json~
+!data/train.json
+!data/robotic_manuals.json
+!data/troubleshooting_logs.json
 
 # Model weights & embeddings
 models/*.bin
@@ -39,11 +44,26 @@ models/*.ckpt
 ~/.cache/transformers/
 
 # FAISS Index files
-index.faiss
-*.faiss
+models/faiss_index/*.faiss  # Keep FAISS directory but ignore large index files
 
-# ROS-related ignores
+# ROS2 Colcon workspace ignores
 build/
-devel/
-log/
 install/
+log/
+.colcon/
+ros2_ws/
+
+# ROS2-specific ignores
+launch/*.pyc
+*.launch.pyc
+ros2_logs/
+ros2_ws/build/
+ros2_ws/install/
+
+# Fine-tuned models (Exclude final config)
+models/rag_finetuned/*
+!models/rag_finetuned/config.json
+
+# VS Code & JetBrains ignores
+.vscode/
+.idea/
