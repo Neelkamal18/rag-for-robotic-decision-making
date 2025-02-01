@@ -1,4 +1,4 @@
-# RAG for Robotic Decision-Making  
+# 🤖 RAG for Robotic Decision-Making  
 
 A **hybrid Retrieval-Augmented Generation (RAG) system** integrating **FAISS-based vector search** and **Knowledge Graphs** to enhance **NLP-driven robotic decision-making** for autonomous systems.
 
@@ -10,7 +10,7 @@ This project enables **UGVs and robotic arms** to:
 ✅ **Process natural language queries** related to troubleshooting, task execution, and operational workflows.  
 ✅ **Retrieve knowledge from robotic manuals, safety protocols, and execution logs** using **FAISS for fast similarity search**.  
 ✅ **Leverage Knowledge Graphs for structured reasoning**, improving interpretability and inference.  
-✅ **Enable real-time task adaptation** through a **ROS-compatible API**, allowing seamless **human-robot collaboration**.  
+✅ **Enable real-time task adaptation** through a **ROS2-compatible API**, allowing seamless **human-robot collaboration**.  
 
 ---
 
@@ -60,105 +60,189 @@ This project enables **UGVs and robotic arms** to:
 ```
 --- 
 
+### **🚀 Updated `README.md` for GitHub with Full Instructions**  
+✅ **This README is now fully formatted for GitHub**, with **accurate installation steps, ROS2 compatibility, troubleshooting, and execution instructions.**  
+
+---
+
+## **📌 `README.md` (Updated Version)**  
+
+```markdown
+# 🤖 RAG for Robotic Decision-Making  
+
+🚀 A **hybrid Retrieval-Augmented Generation (RAG) system** integrating **FAISS-based vector search** and **Knowledge Graphs** to enhance **NLP-driven robotic decision-making** for autonomous systems.
+
+---
+
+## 📌 Overview  
+
+This project enables **UGVs and robotic arms** to:  
+✅ **Process natural language queries** related to troubleshooting, task execution, and operational workflows.  
+✅ **Retrieve knowledge from robotic manuals, safety protocols, and execution logs** using **FAISS for fast similarity search**.  
+✅ **Leverage Knowledge Graphs for structured reasoning**, improving interpretability and inference.  
+✅ **Enable real-time task adaptation** through a **ROS2-compatible API**, allowing seamless **human-robot collaboration**.  
+
+---
+
+## 📂 Project Structure  
+
+```plaintext
+📂 rag-for-robotic-decision-making/
+ ├── 📂 data/
+ │    ├── train.json                    # Sample fine-tuning dataset              
+ │    ├── robotic_manuals.json          # Robotic manuals & safety protocols
+ │    ├── troubleshooting_logs.json     # Logs from real-world robotic failures
+ │    ├── ros_commands.json             # Command-to-action mappings
+ ├── 📂 models/                          # Pre-trained & fine-tuned RAG models
+ │    ├── rag_finetuned/                 # Fine-tuned RAG model
+ │    │    ├── config.json
+ │    │    ├── pytorch_model.bin
+ │    │    ├── tokenizer.json
+ │    ├── faiss_index/                    # FAISS vector search index
+ │    │    ├── robotic_manuals.faiss
+ │    │    ├── troubleshooting_logs.faiss
+ │    ├── knowledge_graph/                # Structured knowledge base
+ │    │    ├── knowledge_graph.pkl
+ ├── 📂 src/                             # Core source code
+ │    ├── faiss_indexer.py               # FAISS indexing & retrieval functions
+ │    ├── knowledge_graph.py             # Knowledge Graph reasoning
+ │    ├── data_loader.py                 # Retrieves documents from FAISS & KG
+ │    ├── rag_pipeline.py                # NLP pipeline (RAG + Llama + GPT)
+ │    ├── train_rag.py                   # Fine-tuning RAG model
+ │    ├── inference.py                    # Runs NLP query inference
+ │    ├── evaluation.py                   # Evaluates RAG performance
+ ├── 📂 rag_robot_interface/              # ROS2 package for NLP-robot API
+ │    ├── __init__.py                     # ROS2 package init file
+ │    ├── robot_api.py                    # ROS2 NLP Node
+ ├── 📂 launch/                           # ROS2 launch files
+ │    ├── robot_nlp_launch.py             # ROS2 launch script
+ ├── 📂 notebooks/                        # Jupyter notebooks for testing
+ │    ├── rag_pipeline.ipynb              # End-to-end implementation
+ ├── 📂 configs/                          # Configuration files
+ ├── 📂 logs/                             # Log directory
+ │    ├── demo_run.log                    # Output log file
+ ├── setup.py                             # ROS2 package setup
+ ├── requirements.txt                     # Python dependencies
+ ├── demo_run.sh                          # Automated script to run the entire pipeline
+ ├── README.md                            # Project overview & instructions
+ ├── LICENSE                              # Open-source license
+ ├── .gitignore                           # Ignore unnecessary files
+```
+---
+
 ## ⚙️ Installation  
 
-Clone the repository:  
+### **1️⃣ Clone the Repository**  
 ```bash
 git clone https://github.com/yourusername/rag-for-robotic-decision-making.git
 cd rag-for-robotic-decision-making
 ```
 
-Install dependencies:  
+### **2️⃣ Install Python Dependencies**  
 ```bash
 pip install -r requirements.txt
 ```
-### Ensure ROS2 environment is sourced first
-```bash
-source /opt/ros/humble/setup.bash  # Replace 'humble' with your ROS2 version
-```
 
-### Install required ROS2 dependencies
+### **3️⃣ Install ROS2 Dependencies via `rosdep`**  
 ```bash
+# Ensure ROS2 environment is sourced first
+source /opt/ros/humble/setup.bash  # Replace 'humble' with your ROS2 version
+
+# Install required ROS2 dependencies
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-### Build & Source ROS2 Package
+### **4️⃣ Build & Source ROS2 Package**  
 ```bash
 colcon build --packages-select rag_robot_interface
 source install/setup.bash
 ```
 
-### Verify Installation
-
+### **5️⃣ Verify Installation**  
 ```bash
 python -c "import torch; print(torch.__version__)"  # Check PyTorch installation
 python -c "import faiss; print(faiss.__version__)"  # Check FAISS installation
 ros2 pkg list | grep rag_robot_interface           # Verify ROS2 package installation
 ```
+---
 
---- 
-
-## 🚀 How to Run the Demo Script  
-
-To **automate the full pipeline execution**, use the provided `demo_run.sh` script.  
-
-### 1️⃣ **Give Execution Permission:**  
+## 🚀 How to Run the ROS2 NLP Node  
 ```bash
-chmod +x demo_run.sh
+ros2 launch rag_robot_interface robot_nlp_launch.py
 ```
 
-### 2️⃣ **Run the Script:**  
+---
+
+## 🚀 Running the Demo Script  
+
+To **automate the full pipeline execution**, use the `demo_run.sh` script.
+
 ```bash
+chmod +x demo_run.sh
 ./demo_run.sh
 ```
 
-### 3️⃣ **Check Logs:**  
 All output is logged to:  
 ```bash
 cat logs/demo_run.log
 ```
-
-### 📌 **What This Script Does:**  
-✅ **Installs dependencies** (if not already installed)  
-✅ **Runs FAISS Indexing** to prepare knowledge retrieval  
-✅ **Starts the ROS API** for robotic integration  
-✅ **Runs inference** for RAG-based robotic query resolution  
-✅ **Evaluates model performance** using **BLEU Score & Recall@K**  
-✅ **Handles errors gracefully** and **logs all actions**  
 
 ---
 
 ## 🚀 How It Works  
 
 ### 1️⃣ **Retrieval-Augmented Generation (RAG) for Robotics**  
-🔹 FAISS retrieves relevant documents from **robotic manuals & execution logs** based on **semantic similarity**.  
-🔹 The **Knowledge Graph provides structured reasoning**, helping robots understand workflows and dependencies.  
-🔹 A **fine-tuned RAG model (`facebook/rag-token-nq`, GPT-based embeddings)** generates contextual responses.  
+🔹 **FAISS-based retrieval** fetches relevant documents from **robotic manuals & execution logs** based on **semantic similarity**.  
+🔹 The **Knowledge Graph provides structured reasoning**, helping robots understand workflows, dependencies, and task execution logic.  
+🔹 A **fine-tuned RAG model (`facebook/rag-token-nq`, GPT-based embeddings)** integrates retrieved knowledge and generates contextually relevant responses.  
+🔹 The **ROS2-compatible API enables real-time decision-making**, allowing robots to process human queries and execute adaptive actions.  
 
-### 2️⃣ **Query Processing Example**  
+### 2️⃣ **Query Processing Example (Standalone Inference)**  
 ```python
 from src.rag_pipeline import RAGModel
 
+# Initialize the RAG model
 model = RAGModel()
-response = model.answer_query("How do I recalibrate my robotic arm?")
-print(response)
-```
 
-### 3️⃣ **ROS-Compatible API for Robotic Integration**  
-Start the robot NLP interface:  
-```bash
-roslaunch rag_robot_interface start.launch
-```
+# Query the model
+query = "How do I recalibrate my robotic arm?"
+response = model.answer_query(query)
 
-Send a command to the robot:  
+# Display response
+print(f"🤖 Generated Response: {response['response']}")
+print(f"📚 Retrieved Documents: {response['retrieved_docs']}")
+```
+---
+
+## 🚀 Sending a Command to the Robot  
+
 ```python
-import rospy
+import rclpy
+from rclpy.node import Node
 from std_msgs.msg import String
 
-rospy.init_node("robot_command")
-pub = rospy.Publisher("/robot_commands", String, queue_size=10)
-pub.publish("Check motor torque levels")
+rclpy.init()
+node = Node("robot_command_publisher")
+pub = node.create_publisher(String, "/robot_commands", 10)
+
+msg = String()
+msg.data = "Check motor torque levels"
+pub.publish(msg)
+
+print("Command sent to robot!")
+node.destroy_node()
+rclpy.shutdown()
 ```
+
+---
+
+## 🚨 Troubleshooting Common Issues
+| **Issue** | **Fix** |
+|-----------|---------|
+| `ModuleNotFoundError: No module named 'rclpy'` | Run `pip install rclpy` and ensure ROS2 is sourced (`source /opt/ros/humble/setup.bash`) |
+| `ros2 launch not found` | Ensure ROS2 is installed and sourced (`sudo apt install ros-humble-desktop`) |
+| `FAISS index file missing` | Run `python src/faiss_indexer.py` before running inference |
+| `Robot does not respond` | Ensure the ROS2 NLP node is running (`ros2 node list | grep robot_nlp_interface`) |
 
 ---
 
